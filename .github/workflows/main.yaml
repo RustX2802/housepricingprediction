@@ -1,46 +1,16 @@
-# Your workflow name.
-name: Deploy to render.
+name: Deploy to Render
 
-# Run workflow on every push to main branch.
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
-# Your workflows jobs.
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Check-out your repository.
       - name: Checkout
         uses: actions/checkout@v2
 
-
-### ⬇ IMPORTANT PART ⬇ ###
-
       - name: Trigger Render deploy hook
-        run: |
-          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
-
-          # (Optional, default: "./")
-          # Dockerfile directory.
-          # For example, if you have a Dockerfile in the root of your project, leave it as follows:
-          dockerfile_directory: ./
-
-          # (Optional, default: "Dockerfile")
-          # Dockerfile name.
-          dockerfile_name: Dockerfile
-
-          # (Optional, default: "")
-          # Additional options of docker build command.
-          docker_options: "--no-cache"
-
-          # (Optional, default: "web")
-          # Select the process type for which you want the docker container to be uploaded.
-          # By default, this argument is set to "web".
-          # For more information look at https://devcenter.render.com/articles/process-model
-          process_type: web
-          
-   
-          
-### ⬆ IMPORTANT PART ⬆ ###
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
